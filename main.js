@@ -84,24 +84,11 @@ function handleDeleteItemClicked() {
 	});
 }
 
-// User can press a switch/checkbox to toggle between displaying all items or displaying only items that are unchecked
-// add html to create a filter checkbox for checked/unchecked items
-
-
-
-// if checkbox is checked display unchecked items, otherwise show all
 function handleCheckedFilter() {
-	// listen for a change on the checkbox
 	$('.js-checked-items-filter').change(event => {
-		console.log('working');
 		$('.shopping-item__checked').closest('li').toggleClass('hidden');
 	});
 }
-
-
-
-
-
 
 // User can type in a search term and the displayed list will be filtered by item names only containing that search term
 // User can edit the title of an item
