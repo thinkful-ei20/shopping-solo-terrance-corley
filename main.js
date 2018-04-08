@@ -7,12 +7,20 @@ const STORE = {
 		{name: "bread", checked: false},
 		{name: "apples", checked: false}
 	],
+	hideCompleted: false,
+	searchTerm: null,
 };
 
 
 function generateItemElement(item, itemIndex, template) {
+	let hide = false;
+
+	if (STORE.hideCompleted && item.checked) {
+		hide = true;
+	}
+
   return `
-    <li class="js-item-index-element" data-item-index="${itemIndex}">
+    <li class="js-item-index-element ${hide ? "hidden" : ''}" data-item-index="${itemIndex}">
       <span class="shopping-item js-shopping-item ${item.checked ? "shopping-item__checked" : ''}">${item.name}</span>
       <div class="shopping-item-controls">
         <button class="shopping-item-toggle js-item-toggle">
@@ -88,7 +96,8 @@ function handleDeleteItemClicked() {
 
 function handleCheckedFilter() {
 	$('.js-checked-items-filter').change(event => {
-		$('.shopping-item__checked').closest('li').toggleClass('hidden');
+		STORE.hideCompleted = !STORE.hideCompleted;
+		renderShoppingList();
 	});
 }
 
