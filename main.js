@@ -142,29 +142,28 @@ function handleSearch() {
 	});
 }
 
-// User can edit the title of an item
-// Create editing prop for each item set to false
-// Create edit btn when generating DOM
-// listen on ul for edit btn click
-// change editing prop to opp when clicked
-// in gen func if editing prop is true
 function handleEdit() {
 	$('.js-shopping-list').on('click', '.js-item-edit', event => {
 		let itemIndex = getItemIndexFromElement(event.target);
 		STORE.items[itemIndex].editing = !STORE.items[itemIndex].editing;
-		console.log(STORE.items[itemIndex].editing);
+		let item = STORE.items[itemIndex];
+		renderEdit(item, itemIndex);
 	});
 }
 
+function renderEdit(item, index) {
+	if (item.editing) {
+		$(`.js-shopping-list li:nth-child(${index + 1})`).find('.js-shopping-item').replaceWith('<input class="js-rename-input" type="text" placeholder="enter new name">');
+		
+		$(`.js-shopping-list li:nth-child(${index + 1}) .js-item-edit`).find('span').text('done');
+	} else {
+		item.name = $('.js-rename-input').val();
 
-
-
-
-
-
-
-
-
+		$('.js-rename-input').replaceWith(`<span class="shopping-item js-shopping-item ${item.checked ? "shopping-item__checked" : ''}">${item.name}</span>`);
+		
+		$(`.js-shopping-list li:nth-child(${index + 1}) .js-item-edit`).find('span').text('edit');
+	}
+}
 
 function handleShoppingList() {
   renderShoppingList();
