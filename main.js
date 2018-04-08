@@ -150,7 +150,9 @@ function handleSearch() {
 // in gen func if editing prop is true
 function handleEdit() {
 	$('.js-shopping-list').on('click', '.js-item-edit', event => {
-		console.log('clicked me bruh');
+		let itemIndex = getItemIndexFromElement(event.target);
+		STORE.items[itemIndex].editing = !STORE.items[itemIndex].editing;
+		console.log(STORE.items[itemIndex].editing);
 	});
 }
 
