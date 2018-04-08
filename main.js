@@ -32,10 +32,7 @@ function generateShoppingItemsString(shoppingList) {
 
 
 function renderShoppingList() {
-  // render the shopping list in the DOM
   const shoppingListItemsString = generateShoppingItemsString(STORE);
-
-  // insert that HTML into the DOM
   $('.js-shopping-list').html(shoppingListItemsString);
 }
 
@@ -80,29 +77,42 @@ function deleteClickedItem(itemIndex) {
 
 
 function handleDeleteItemClicked() {
-  // this function will be responsible for when users want to delete a shopping list
-	// item
-	// listen to when a user clicks the delete button
 	$('.js-shopping-list').on('click', '.js-item-delete', event => {
-		// grab the index for that btns li
 		const itemIndex = getItemIndexFromElement(event.currentTarget);
-		// delete that li
 		deleteClickedItem(itemIndex);
-		// rerender the shopping list
 		renderShoppingList();
 	});
 }
 
-// this function will be our callback when the page loads. it's responsible for
-// initially rendering the shopping list, and activating our individual functions
-// that handle new item submission and user clicks on the "check" and "delete" buttons
-// for individual shopping list items.
-function handleShoppingList() {
-  renderShoppingList();
-  handleNewItemSubmit();
-  handleItemCheckClicked();
-  handleDeleteItemClicked();
+// User can press a switch/checkbox to toggle between displaying all items or displaying only items that are unchecked
+// add html to create a filter checkbox for checked/unchecked items
+
+
+
+// if checkbox is checked display unchecked items, otherwise show all
+function handleCheckedFilter() {
+	// listen for a change on the checkbox
+	$('.js-checked-items-filter').change(event => {
+		console.log('working');
+		$('.shopping-item__checked').closest('li').toggleClass('hidden');
+	});
 }
 
-// when the page loads, call `handleShoppingList`
+
+
+
+
+
+// User can type in a search term and the displayed list will be filtered by item names only containing that search term
+// User can edit the title of an item
+// You must use the state management pattern. Update the store; run the render function. Do not directly update the DOM.
+
+function handleShoppingList() {
+  renderShoppingList();
+	handleNewItemSubmit();
+  handleItemCheckClicked();
+	handleDeleteItemClicked();
+	handleCheckedFilter();
+}
+
 $(handleShoppingList);
