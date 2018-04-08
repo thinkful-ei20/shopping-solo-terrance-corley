@@ -1,11 +1,13 @@
 'use strict';
 
-const STORE = [
-  {name: "apples", checked: false},
-  {name: "oranges", checked: false},
-  {name: "milk", checked: true},
-  {name: "bread", checked: false}
-];
+const STORE = {
+  items: [
+		{name: "oranges", checked: false},
+		{name: "milk", checked: true},
+		{name: "bread", checked: false},
+		{name: "apples", checked: false}
+	],
+};
 
 
 function generateItemElement(item, itemIndex, template) {
@@ -32,13 +34,13 @@ function generateShoppingItemsString(shoppingList) {
 
 
 function renderShoppingList() {
-  const shoppingListItemsString = generateShoppingItemsString(STORE);
+  const shoppingListItemsString = generateShoppingItemsString(STORE.items);
   $('.js-shopping-list').html(shoppingListItemsString);
 }
 
 
 function addItemToShoppingList(itemName) {
-  STORE.push({name: itemName, checked: false});
+  STORE.items.push({name: itemName, checked: false});
 }
 
 function handleNewItemSubmit() {
@@ -52,7 +54,7 @@ function handleNewItemSubmit() {
 }
 
 function toggleCheckedForListItem(itemIndex) {
-  STORE[itemIndex].checked = !STORE[itemIndex].checked;
+  STORE.items[itemIndex].checked = !STORE.items[itemIndex].checked;
 }
 
 
@@ -72,7 +74,7 @@ function handleItemCheckClicked() {
 }
 
 function deleteClickedItem(itemIndex) {
-	STORE.splice(itemIndex, 1);
+	STORE.items.splice(itemIndex, 1);
 }
 
 

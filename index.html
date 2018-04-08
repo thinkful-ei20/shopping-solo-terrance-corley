@@ -17,10 +17,13 @@
 			<button type="submit">Add item</button>
 		</form>
 
-		<div class="filter-container">
+		<form class="js-filter-form">
 			<input type="checkbox" id="checked-items-filter" name="checked-items-filter" class="js-checked-items-filter">
 			<label for="checked-items-filter">Unchecked Items</label>
-		</div>
+
+			<input type="text" name="filtered-input" class="js-filtered-input" placeholder="Enter item to search...">
+			<button type="submit">Search</button>
+		</form>
 
 		<ul class="shopping-list js-shopping-list">
 		</ul>
