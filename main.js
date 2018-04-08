@@ -19,6 +19,10 @@ function generateItemElement(item, itemIndex, template) {
 		hide = true;
 	}
 
+	if (item.name.includes(STORE.searchTerm)) {
+		console.log('might be orange bruh');
+	}
+
   return `
     <li class="js-item-index-element ${hide ? "hidden" : ''}" data-item-index="${itemIndex}">
       <span class="shopping-item js-shopping-item ${item.checked ? "shopping-item__checked" : ''}">${item.name}</span>
@@ -102,6 +106,31 @@ function handleCheckedFilter() {
 }
 
 // User can type in a search term and the displayed list will be filtered by item names only containing that search term
+
+// Search through items and return items that contain search input
+function searchItems(itemSearched) {
+	STORE.searchTerm = itemSearched;
+}
+
+// listen on submit and capture input--set input to ''
+function handleSearch() {
+	$('.js-search-form').submit(event => {
+		event.preventDefault();
+		let itemSearched = $('.js-search-input').val();
+		searchItems(itemSearched);
+		$('.js-search-input').val('');
+		renderShoppingList();
+	});
+}
+// 
+
+
+
+
+
+
+
+
 // User can edit the title of an item
 // You must use the state management pattern. Update the store; run the render function. Do not directly update the DOM.
 
@@ -111,6 +140,7 @@ function handleShoppingList() {
   handleItemCheckClicked();
 	handleDeleteItemClicked();
 	handleCheckedFilter();
+	handleSearch();
 }
 
 $(handleShoppingList);
