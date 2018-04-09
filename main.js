@@ -2,6 +2,12 @@
 
 /* global $ */
 
+/* TO DO:
+		1) Fix bugs outlined on line 165
+		2) Refactor line 31
+		3) Add btn to dom to display full list when clicked
+*/
+
 const STORE = {
   items: [
 		{name: "oranges", checked: false, editing: false},
@@ -20,9 +26,10 @@ function generateItemElement(item, itemIndex, template) {
 	if (STORE.hideCompleted && item.checked) {
 		hide = true;
 	}
-
+	console.log(item);
 	if (STORE.searchTerm !== null) {
 		if (item.name.includes(STORE.searchTerm)) {
+			// refactor html -- consider creating additional function
 			return `
 			<li class="js-item-index-element ${hide ? "hidden" : ''}" data-item-index="${itemIndex}">
 				<span class="shopping-item js-shopping-item ${item.checked ? "shopping-item__checked" : ''}">${item.name}</span>
@@ -157,6 +164,8 @@ function renderEdit(item, index) {
 		
 		$(`.js-shopping-list li:nth-child(${index + 1}) .js-item-edit`).find('span').text('done');
 	} else {
+		// fix bug when editing searched items *TypeErr*
+		console.log($('.js-rename-input').val());
 		item.name = $('.js-rename-input').val();
 
 		$('.js-rename-input').replaceWith(`<span class="shopping-item js-shopping-item ${item.checked ? "shopping-item__checked" : ''}">${item.name}</span>`);
